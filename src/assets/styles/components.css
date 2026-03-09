@@ -151,6 +151,24 @@
   opacity: 1;
 }
 
+.preview-exit-label {
+  position: fixed;
+  top: calc(80dvh - 44px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.preview-exit-label.is-visible {
+  opacity: 1;
+}
+
 .preview-close-btn {
   position: fixed;
   top: 80dvh;
