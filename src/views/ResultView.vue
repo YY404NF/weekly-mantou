@@ -28,7 +28,7 @@ watch(
 
 <template>
   <section class="card-body">
-    <h2>抽奖结果</h2>
+    <h2>抽奖结果 🎉</h2>
 
     <MantouModel3D
       :items="drawResult.items"
@@ -37,12 +37,12 @@ watch(
     />
 
     <div v-if="summaryReady" class="result-summary">
-      <p>总个数：{{ drawResult.totalCount }} 个</p>
+      <p>总个数：{{ drawResult.totalCount }} 个 🧺</p>
     </div>
 
-    <button v-if="modelsReady" class="primary-btn" @click="$emit('copy')">复制抽奖结果</button>
+    <button v-if="modelsReady" class="primary-btn" @click="$emit('copy')">复制抽奖结果 📋</button>
     <p v-if="modelsReady && copyTip" class="tip">{{ copyTip }}</p>
 
-    <button v-if="modelsReady" class="ghost-btn" @click="$emit('redraw')">重新抽奖</button>
+    <button v-if="modelsReady" class="ghost-btn" @click="$emit('redraw')">重新抽奖 🔄</button>
   </section>
 </template>

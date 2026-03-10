@@ -141,7 +141,7 @@ function backToDraw() {
     <section class="phone-card">
       <header class="card-header">
         <div class="header-title-row">
-          <h1>馒头抽奖器</h1>
+          <h1>馒头抽奖器 🥟</h1>
           <a
             class="github-link"
             href="https://github.com/YY404NF/Weekly-Mantou"
@@ -157,7 +157,7 @@ function backToDraw() {
             </svg>
           </a>
         </div>
-        <p>选择困难症也要买馒头！</p>
+        <p>选择困难症也要买馒头！✨</p>
       </header>
 
       <DrawView
