@@ -1,37 +1,10 @@
 <script setup lang="ts">
-import { useLoader, useTres } from '@tresjs/core'
-import { ref, watch } from 'vue'
+import { shallowRef, watch } from 'vue'
+import type { WebGLRenderer } from 'three'
 import type { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
-import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
-import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
+import { useTres } from '@tresjs/core'
+import { loadCachedGLTF } from '@/utils/gltfModelCache'
 import { getFallbackModelUrl, resolveModelUrl } from '@/utils/modelUrl'
-
-const dracoDecoderPath = '/draco/gltf/'
-const ktx2TranscoderPath = '/basis/'
-
-let sharedDracoLoader: DRACOLoader | null = null
-let sharedKTX2Loader: KTX2Loader | null = null
-
-function getDracoLoader(): DRACOLoader {
-  if (!sharedDracoLoader) {
-    sharedDracoLoader = new DRACOLoader()
-    sharedDracoLoader.setDecoderPath(dracoDecoderPath)
-  }
-
-  return sharedDracoLoader
-}
-
-function getKTX2Loader(renderer: ReturnType<typeof useTres>['renderer']): KTX2Loader {
-  if (!sharedKTX2Loader) {
-    sharedKTX2Loader = new KTX2Loader()
-    sharedKTX2Loader.setTranscoderPath(ktx2TranscoderPath)
-    sharedKTX2Loader.detectSupport(renderer)
-  }
-
-  return sharedKTX2Loader
-}
 
 const props = defineProps<{
   modelUrl: string
@@ -43,43 +16,39 @@ const emit = defineEmits<{
 }>()
 
 const fallbackModelUrl = getFallbackModelUrl()
-const resolvedModelUrl = ref(fallbackModelUrl)
-const loadedOnce = ref(false)
+const gltf = shallowRef<GLTF | null>(null)
+const loadedOnce = shallowRef(false)
 const { renderer } = useTres()
+let loadToken = 0
 
-const { state: gltf, error } = useLoader<GLTF>(GLTFLoader, resolvedModelUrl, {
-  extensions: (loader) => {
-    loader.setDRACOLoader(getDracoLoader())
-    loader.setMeshoptDecoder(MeshoptDecoder)
-    loader.setKTX2Loader(getKTX2Loader(renderer))
-  },
-})
+async function loadModel(url: string): Promise<void> {
+  const currentToken = ++loadToken
+  loadedOnce.value = false
+  gltf.value = null
+
+  const nextUrl = await resolveModelUrl(url || fallbackModelUrl)
+  if (currentToken !== loadToken) return
+
+  try {
+    gltf.value = await loadCachedGLTF(nextUrl, renderer as WebGLRenderer)
+  } catch {
+    if (nextUrl === fallbackModelUrl || currentToken !== loadToken) return
+
+    gltf.value = await loadCachedGLTF(fallbackModelUrl, renderer as WebGLRenderer)
+  }
+
+  if (currentToken === loadToken && gltf.value?.scene && !loadedOnce.value) {
+    loadedOnce.value = true
+    emit('loaded')
+  }
+}
 
 watch(
   () => props.modelUrl,
-  async (url) => {
-    loadedOnce.value = false
-    resolvedModelUrl.value = await resolveModelUrl(url || fallbackModelUrl)
+  (url) => {
+    void loadModel(url)
   },
   { immediate: true },
-)
-
-watch(
-  () => error.value,
-  async (loadError) => {
-    if (!loadError || resolvedModelUrl.value === fallbackModelUrl) return
-    resolvedModelUrl.value = await resolveModelUrl(fallbackModelUrl)
-  },
-)
-
-watch(
-  () => gltf.value?.scene,
-  (scene) => {
-    if (!loadedOnce.value && scene) {
-      loadedOnce.value = true
-      emit('loaded')
-    }
-  },
 )
 </script>
 

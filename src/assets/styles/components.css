@@ -92,6 +92,148 @@
   font-weight: 800;
 }
 
+.pool-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 12px 96px;
+  background: rgba(180, 208, 245, 0.08);
+  backdrop-filter: blur(0px) saturate(120%);
+  -webkit-backdrop-filter: blur(0px) saturate(120%);
+  opacity: 0;
+  transition:
+    opacity 280ms ease,
+    backdrop-filter 280ms ease,
+    -webkit-backdrop-filter 280ms ease,
+    background-color 280ms ease;
+}
+
+.pool-overlay.is-visible {
+  opacity: 1;
+  background: rgba(180, 208, 245, 0.16);
+  backdrop-filter: blur(18px) saturate(165%);
+  -webkit-backdrop-filter: blur(18px) saturate(165%);
+}
+
+.pool-panel {
+  width: min(92vw, 520px);
+  height: min(84dvh, 760px);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(240, 247, 255, 0.8)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.34), transparent 42%);
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.16);
+  padding: 18px 16px 16px;
+  transform: translateY(12px) scale(0.985);
+  opacity: 0;
+  transition:
+    opacity 280ms ease,
+    transform 280ms ease;
+}
+
+.pool-panel.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.pool-panel-head h2,
+.pool-panel-head p {
+  margin: 0;
+}
+
+.pool-panel-head h2 {
+  font-size: 24px;
+  color: #0f172a;
+}
+
+.pool-panel-head p {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.pool-grid {
+  margin-top: 14px;
+  height: calc(100% - 58px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(4, minmax(0, 1fr));
+  gap: 10px 10px;
+}
+
+.pool-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  border-radius: 18px;
+  padding: 10px 8px 8px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(203, 213, 225, 0.72);
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 320ms ease,
+    transform 320ms ease;
+}
+
+.pool-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pool-card-canvas {
+  width: 100%;
+  height: 86px;
+}
+
+.pool-card-meta {
+  margin-top: 4px;
+}
+
+.pool-card-name,
+.pool-card-price {
+  margin: 0;
+  text-align: center;
+}
+
+.pool-card-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.pool-card-price {
+  margin-top: 3px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.pool-close-btn {
+  position: fixed;
+  top: 88dvh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 24px;
+  background: #0ea5e9;
+  color: #fff;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.pool-close-btn.is-visible {
+  opacity: 1;
+}
+
 .preview-overlay {
   position: fixed;
   inset: 0;

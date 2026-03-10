@@ -32,9 +32,43 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
+.header-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .card-header h1 {
   margin: 0;
   font-size: 24px;
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  color: #0f172a;
+  background: #f8fafc;
+  border: 1px solid #dbe3ee;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.github-link:hover {
+  transform: translateY(-1px);
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.github-link svg {
+  width: 18px;
+  height: 18px;
 }
 
 .card-header p {
