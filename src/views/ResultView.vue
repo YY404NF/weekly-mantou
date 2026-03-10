@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import MantouModel3D from '@/components/MantouModel3D.vue'
 import type { DrawResult } from '@/types/mantou'
 
@@ -11,21 +12,31 @@ defineEmits<{
   copy: []
   redraw: []
 }>()
+
+const modelsReady = ref(false)
+
+watch(
+  () => props.drawResult,
+  () => {
+    modelsReady.value = false
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
   <section class="card-body">
     <h2>抽奖结果</h2>
 
-    <MantouModel3D :items="drawResult.items" />
+    <MantouModel3D :items="drawResult.items" @ready="modelsReady = $event" />
 
-    <div class="result-summary">
+    <div v-if="modelsReady" class="result-summary">
       <p>总个数：{{ drawResult.totalCount }} 个</p>
     </div>
 
-    <button class="primary-btn" @click="$emit('copy')">复制抽奖结果</button>
-    <p v-if="copyTip" class="tip">{{ copyTip }}</p>
+    <button v-if="modelsReady" class="primary-btn" @click="$emit('copy')">复制抽奖结果</button>
+    <p v-if="modelsReady && copyTip" class="tip">{{ copyTip }}</p>
 
-    <button class="ghost-btn" @click="$emit('redraw')">重新抽奖</button>
+    <button v-if="modelsReady" class="ghost-btn" @click="$emit('redraw')">重新抽奖</button>
   </section>
 </template>

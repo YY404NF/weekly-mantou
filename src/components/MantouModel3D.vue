@@ -8,6 +8,10 @@ const props = defineProps<{
   items: DrawResultItem[]
 }>()
 
+const emit = defineEmits<{
+  ready: [value: boolean]
+}>()
+
 const elapsedMs = ref(0)
 const nowMs = ref(0)
 const introStartedAt = ref<number | null>(null)
@@ -30,6 +34,9 @@ const introEndAtMs = computed(() => {
 })
 
 const finalShowcase = computed(() => elapsedMs.value >= introEndAtMs.value)
+const allSlotsLoaded = computed(
+  () => orderedItems.value.length > 0 && loadedSlotKeys.value.size >= orderedItems.value.length,
+)
 
 watch(
   () => props.items,
@@ -38,6 +45,15 @@ watch(
     introStartedAt.value = null
     elapsedMs.value = 0
     activePreviewItem.value = null
+    emit('ready', false)
+  },
+  { immediate: true },
+)
+
+watch(
+  allSlotsLoaded,
+  (value) => {
+    emit('ready', value)
   },
   { immediate: true },
 )
