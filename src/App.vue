@@ -144,7 +144,7 @@ function backToDraw() {
           <h1>馒头抽奖器</h1>
           <a
             class="github-link"
-            href="https://github.com/YY404NF/Weekly-Mantou"
+            href="https://github.com/YY404NF/weekly-mantou"
             target="_blank"
             rel="noreferrer"
             aria-label="查看 GitHub 仓库"

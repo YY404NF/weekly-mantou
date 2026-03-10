@@ -1,4 +1,4 @@
-# Weekly-Mantou  每周馒头抽奖器
+# weekly-mantou  每周馒头抽奖器
 
 选择困难症。
 
@@ -22,5 +22,4 @@ npm run dev
 2. 进入 `Pages`。
 3. `Build and deployment` 中选择 `Source = GitHub Actions`。
 4. 等待 `Actions` 里的 `Deploy to GitHub Pages` 工作流成功。
-5. 发布地址通常是：`https://<你的GitHub用户名>.github.io/Weekly-Mantou/`
-
+5. 发布地址通常是：`https://<你的GitHub用户名>.github.io/weekly-mantou/`
