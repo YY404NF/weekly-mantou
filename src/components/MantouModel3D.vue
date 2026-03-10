@@ -10,6 +10,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   ready: [value: boolean]
+  showcaseReady: [value: boolean]
 }>()
 
 const elapsedMs = ref(0)
@@ -46,6 +47,7 @@ watch(
     elapsedMs.value = 0
     activePreviewItem.value = null
     emit('ready', false)
+    emit('showcaseReady', false)
   },
   { immediate: true },
 )
@@ -54,6 +56,14 @@ watch(
   allSlotsLoaded,
   (value) => {
     emit('ready', value)
+  },
+  { immediate: true },
+)
+
+watch(
+  finalShowcase,
+  (value) => {
+    emit('showcaseReady', value)
   },
   { immediate: true },
 )

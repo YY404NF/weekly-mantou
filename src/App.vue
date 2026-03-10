@@ -19,16 +19,15 @@ function randomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-function formatPrice(value: number): string {
-  return `¥${value.toFixed(2)}`
+function joinMantouPhrases(parts: string[]): string {
+  if (parts.length <= 1) return parts[0] ?? ''
+  if (parts.length === 2) return `${parts[0]}和${parts[1]}`
+  return `${parts.slice(0, -1).join('、')}和${parts.at(-1)}`
 }
 
 function createShareText(result: DrawResultBase): string {
-  const detailLines = result.items
-    .map((item) => `${item.name} x${item.quantity}（${formatPrice(item.subtotal)}）`)
-    .join('\n')
-
-  return `本周馒头抽奖结果：\n${detailLines}\n总数：${result.totalCount}个\n预算：${formatPrice(result.totalCost)}`
+  const detailText = joinMantouPhrases(result.items.map((item) => `${item.quantity}个${item.name}`))
+  return `我抽到了${detailText}。`
 }
 
 function runDraw() {

@@ -14,11 +14,13 @@ defineEmits<{
 }>()
 
 const modelsReady = ref(false)
+const summaryReady = ref(false)
 
 watch(
   () => props.drawResult,
   () => {
     modelsReady.value = false
+    summaryReady.value = false
   },
   { immediate: true },
 )
@@ -28,9 +30,13 @@ watch(
   <section class="card-body">
     <h2>抽奖结果</h2>
 
-    <MantouModel3D :items="drawResult.items" @ready="modelsReady = $event" />
+    <MantouModel3D
+      :items="drawResult.items"
+      @ready="modelsReady = $event"
+      @showcase-ready="summaryReady = $event"
+    />
 
-    <div v-if="modelsReady" class="result-summary">
+    <div v-if="summaryReady" class="result-summary">
       <p>总个数：{{ drawResult.totalCount }} 个</p>
     </div>
 
