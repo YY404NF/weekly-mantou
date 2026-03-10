@@ -37,7 +37,7 @@ watch(
     />
 
     <div v-if="summaryReady" class="result-summary">
-      <p>总个数：{{ drawResult.totalCount }} 个 🧺</p>
+      <p>总个数：{{ drawResult.totalCount }} 个</p>
     </div>
 
     <button v-if="modelsReady" class="primary-btn" @click="$emit('copy')">复制抽奖结果 📋</button>
