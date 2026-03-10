@@ -30,7 +30,6 @@ function closeOverlay(): void {
     <section class="pool-panel" :class="{ 'is-visible': entered }">
       <div class="pool-panel-head">
         <h2>奖池内容</h2>
-        <p>加载好的馒头会逐个出现</p>
       </div>
 
       <div class="pool-grid">
