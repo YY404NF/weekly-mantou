@@ -9,6 +9,10 @@ const props = defineProps<{
   index: number
 }>()
 
+const emit = defineEmits<{
+  preview: [item: MantouItem]
+}>()
+
 const cameraPosition = [0, 0.1, 1.5] as const
 const viewingTilt = 0.6
 const displayScale = 8
@@ -33,6 +37,10 @@ function handleLoaded(): void {
   loaded.value = true
 }
 
+function handlePreviewClick(): void {
+  emit('preview', props.item)
+}
+
 onMounted(() => {
   startedAt = performance.now()
   const tick = (now: number) => {
@@ -48,7 +56,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <article class="pool-card" :class="{ 'is-visible': cardVisible }">
+  <article class="pool-card" :class="{ 'is-visible': cardVisible }" @click="handlePreviewClick">
     <div class="pool-card-canvas">
       <TresCanvas :clear-color="'#00000000'" :alpha="true">
         <TresPerspectiveCamera :position="cameraPosition" />

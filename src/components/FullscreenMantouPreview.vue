@@ -3,10 +3,10 @@ import { onMounted, ref } from 'vue'
 import { TresCanvas } from '@tresjs/core'
 import { OrbitControls } from '@tresjs/cientos'
 import MantouModel from '@/components/MantouModel.vue'
-import type { DrawResultItem } from '@/types/mantou'
+import type { DrawResultItem, MantouItem } from '@/types/mantou'
 
 defineProps<{
-  item: DrawResultItem
+  item: DrawResultItem | MantouItem
 }>()
 
 const emit = defineEmits<{
