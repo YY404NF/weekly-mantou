@@ -7,6 +7,6 @@
   { "id": 6, "name": "荞麦馒头", "price": 0.80, "purchasable": true, "fixed": false, "modelUrl": "/models/mantou/荞麦馒头.glb" },
   { "id": 7, "name": "黑米馒头", "price": 0.80, "purchasable": true, "fixed": false, "modelUrl": "/models/mantou/黑米馒头.glb" },
   { "id": 8, "name": "红糖馒头", "price": 1.00, "purchasable": true, "fixed": false, "modelUrl": "/models/mantou/红糖馒头.glb" },
-  { "id": 9, "name": "未知花卷", "price": 0.50, "purchasable": true, "fixed": false, "modelUrl": "/models/mantou/未知花卷.glb" },
-  { "id": 10, "name": "玉米馒头", "price": 0.50, "purchasable": true, "fixed": false, "modelUrl": "/models/mantou/玉米馒头.glb" }
+  { "id": 9, "name": "肉沫花卷", "price": 1.00, "purchasable": true, "fixed": false, "modelUrl": "/models/mantou/肉沫花卷.glb" },
+  { "id": 10, "name": "玉米馒头", "price": 1.00, "purchasable": true, "fixed": false, "modelUrl": "/models/mantou/玉米馒头.glb" }
 ]
